@@ -1,9 +1,8 @@
 package pl.javastart.shortener.link.dto;
 
-public class LinkCreateDto {
+public class LinkUpdateDto {
     private String name;
     private String password;
-    private String targetUrl;
 
     public String getName() {
         return name;
@@ -19,13 +18,5 @@ public class LinkCreateDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getTargetUrl() {
-        return targetUrl;
-    }
-
-    public void setTargetUrl(String targetUrl) {
-        this.targetUrl = targetUrl;
     }
 }

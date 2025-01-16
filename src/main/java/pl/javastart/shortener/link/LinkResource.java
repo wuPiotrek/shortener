@@ -1,10 +1,10 @@
 package pl.javastart.shortener.link;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import pl.javastart.shortener.link.dto.LinkCreateDto;
-import pl.javastart.shortener.link.dto.LinkDto;
+import pl.javastart.shortener.link.dto.*;
 
 import java.net.URI;
 
@@ -32,5 +32,32 @@ public class LinkResource {
         return linkService.findLinkById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}")
+    ResponseEntity<?> update(@PathVariable String id,
+                             @RequestBody LinkUpdateDto link) {
+        try {
+            linkService.updateLink(id, link);
+            return ResponseEntity.noContent().build();
+        } catch (LinkNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (InvalidPasswordException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .header("reason", e.getMessage())
+                    .build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteById(@PathVariable String id, @RequestHeader String passwd) {
+        try {
+            linkService.deleteById(id, passwd);
+            return ResponseEntity.noContent().build();
+        } catch (InvalidPasswordException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .header("reason", e.getMessage())
+                    .build();
+        }
     }
 }

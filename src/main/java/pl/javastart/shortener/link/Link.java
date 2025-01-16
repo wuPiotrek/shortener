@@ -8,16 +8,26 @@ public class Link {
     @Id
     private String id;
     private String name;
+    private String password;
     private String targetUrl;
     private int visits;
 
     public Link() {
     }
 
-    public Link(String id, String name, String targetUrl) {
+    public Link(String id, String name, String password, String targetUrl) {
         this.id = id;
         this.name = name;
+        this.password = password;
         this.targetUrl = targetUrl;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getId() {
