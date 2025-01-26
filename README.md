@@ -21,7 +21,7 @@
   - **Spring Web**
   - **Spring Data JPA**
   - **Liquibase**
-- **Database**: H2
+- **Database**: H2 managed by Liquibase
 
 ---
 
